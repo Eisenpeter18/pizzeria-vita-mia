@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizzeria Vita Mia | Sandhausen</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Styles (Scrollbar etc.) -->
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #18181b; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3f3f46; 
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #52525b; 
+        }
+        
+        /* Sanftes Einblenden für Modals und Elemente */
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Premium-Übergangseffekt (Weiche Verläufe zwischen Sektionen) */
+        .section-divider-top {
+            background: linear-gradient(to top, rgba(9, 9, 11, 1) 0%, rgba(24, 24, 27, 0) 100%);
+        }
+        .section-divider-bottom {
+            background: linear-gradient(to bottom, rgba(9, 9, 11, 1) 0%, rgba(24, 24, 27, 0) 100%);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-zinc-950 text-zinc-100 font-sans selection:bg-amber-500 selection:text-zinc-950">
+
+    <!-- --- NAVIGATION --- -->
+    <nav id="navbar" class="fixed w-full z-40 transition-all duration-300 bg-transparent py-5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <!-- Logo mit Bild & robustem Vektor-Fallback -->
+                <a href="#" class="flex items-center gap-3 cursor-pointer group">
+                    <div class="w-11 h-11 rounded-full overflow-hidden bg-zinc-900 border border-amber-500/30 flex items-center justify-center p-0.5 group-hover:border-amber-500 transition-colors">
+                        <img src="./assets/logo.png" alt="Vita Mia Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                        <div class="hidden w-full h-full items-center justify-center bg-zinc-900 text-amber-500">
+                            <!-- Schönes Inline-SVG als Fallback, falls Datei nicht gefunden wird -->
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                    </div>
+                    <span class="text-2xl font-bold tracking-wider text-white">VITA <span class="text-amber-500">MIA</span></span>
+                </a>
+                
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-zinc-300 hover:text-amber-500 transition-colors font-medium">Über uns</a>
+                    <a href="#menu" class="text-zinc-300 hover:text-amber-500 transition-colors font-medium">Speisekarte</a>
+                    <a href="#philosophy" class="text-zinc-300 hover:text-amber-500 transition-colors font-medium">Philosophie</a>
+                    <a href="#reviews" class="text-zinc-300 hover:text-amber-500 transition-colors font-medium">Bewertungen</a>
+                    <a href="#contact" class="text-zinc-300 hover:text-amber-500 transition-colors font-medium">Kontakt</a>
+                    <a href="#order" class="bg-amber-500 hover:bg-amber-600 text-zinc-950 px-6 py-2.5 rounded-full font-bold transition-all hover:scale-105 hover:shadow-[0_0_15px_rgba(245,158,11,0.4)] flex items-center gap-2">
+                        Jetzt bestellen
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-zinc-300 focus:outline-none">
+                    <i data-lucide="menu" id="icon-menu" class="h-8 w-8"></i>
+                    <i data-lucide="x" id="icon-x" class="h-8 w-8 hidden"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-zinc-950/95 backdrop-blur-md shadow-xl border-t border-zinc-900 flex-col p-4 space-y-4">
+            <a href="#about" class="mobile-link block px-4 py-2 text-zinc-300 hover:text-amber-500">Über uns</a>
+            <a href="#menu" class="mobile-link block px-4 py-2 text-zinc-300 hover:text-amber-500">Speisekarte</a>
+            <a href="#philosophy" class="mobile-link block px-4 py-2 text-zinc-300 hover:text-amber-500">Philosophie</a>
+            <a href="#order" class="mobile-link block px-4 py-2 text-amber-500 font-bold">Jetzt bestellen</a>
+        </div>
+    </nav>
+
+    <!-- --- HERO SECTION --- -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0">
+            <img 
+                src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1920&q=80"
+                alt="Frische Pizza im Steinofen" 
+                class="w-full h-full object-cover opacity-40"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/40 to-transparent"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-20">
+            <span class="text-amber-500 font-semibold tracking-widest uppercase text-sm md:text-base mb-4 block">Original Italienisch in Sandhausen</span>
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-6 drop-shadow-lg leading-tight">
+                La Dolce Vita für <br class="hidden md:block"/> Dein Zuhause
+            </h1>
+            <p class="text-lg md:text-xl text-zinc-300 mb-10 max-w-2xl mx-auto font-light">
+                Genieße knusprige Steinofenpizza, hausgemachte Pasta und frische Bowls. Schnelle Lieferung in ca. 40 Minuten.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#order" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-zinc-950 px-8 py-4 rounded-full font-bold text-lg transition-all hover:scale-105 shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+                    Jetzt online bestellen
+                </a>
+                <a href="#menu" class="w-full sm:w-auto bg-zinc-800/80 hover:bg-zinc-850 backdrop-blur-sm text-white px-8 py-4 rounded-full font-bold text-lg transition-all border border-zinc-800 hover:border-amber-500">
+                    Speisekarte ansehen
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- SEKTIONS-ÜBERGANG (Hero -> Über Uns) --- -->
+    <div class="h-24 bg-gradient-to-b from-transparent to-zinc-950 -mt-24 relative z-20"></div>
+
+    <!-- --- ABOUT SECTION --- -->
+    <section id="about" class="py-24 bg-zinc-950 relative overflow-hidden">
+        <div class="absolute top-1/4 left-0 w-80 h-80 bg-red-600/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="relative">
+                    <img 
+                        src="./assets/location.png" 
+                        alt="Restaurant Innenansicht" 
+                        class="rounded-2xl shadow-2xl border border-zinc-800"
+                    />
+                    <div class="absolute -bottom-6 -right-6 bg-zinc-900 border border-zinc-800 p-6 rounded-2xl shadow-xl hidden lg:block">
+                        <p class="text-amber-500 text-4xl font-bold mb-1">100%</p>
+                        <p class="text-zinc-400 font-medium text-sm">Frische Zutaten</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-zinc-900/80 border border-zinc-800 px-3 py-1.5 rounded-full text-xs font-semibold text-amber-500 uppercase tracking-wider mb-6">
+                        <i data-lucide="award" class="w-3.5 h-3.5"></i> Unser Qualitätsversprechen
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white leading-tight">Tradition trifft auf moderne Vielfalt</h2>
+                    <p class="text-zinc-400 text-lg leading-relaxed mb-6 font-light">
+                        Willkommen in der Pizzeria Vita Mia in Sandhausen. Wir kombinieren traditionelle italienische Rezepte mit modernen Einflüssen. Ob unsere klassische Pizza aus dem Steinofen, herzhafte Pasta oder unsere innovativen, frischen Bowls – bei uns wird jeder fündig.
+                    </p>
+                    <p class="text-zinc-400 text-lg leading-relaxed mb-8 font-light">
+                        Höchste Qualität, frische Zutaten und die Liebe zum Handwerk schmeckt man in jedem Bissen. Wir freuen uns darauf, Sie kulinarisch verwöhnen zu dürfen!
+                    </p>
+                    <div class="flex items-center gap-4 text-amber-500 font-bold bg-zinc-900/50 border border-zinc-800/80 p-4 rounded-xl inline-flex">
+                        <i data-lucide="phone" class="h-6 w-6"></i>
+                        <span class="text-xl">06224 5936717</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- SPEISEKARTE --- -->
+    <section id="menu" class="py-24 bg-zinc-950 border-t border-zinc-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-amber-500 font-semibold tracking-widest uppercase text-xs mb-3 block">Erlesene Auswahl</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Unsere Speisekarte</h2>
+                <p class="text-zinc-400 max-w-2xl mx-auto font-light">Entdecken Sie unsere große Auswahl an authentischen Gerichten, frisch für Sie zubereitet.</p>
+            </div>
+
+            <!-- Category Tabs -->
+            <div id="menu-tabs" class="flex overflow-x-auto pb-4 mb-8 gap-3 justify-start md:justify-center no-scrollbar">
+                <!-- Tabs werden über JS generiert -->
+            </div>
+
+            <!-- Menu Items Grid -->
+            <div id="menu-content" class="grid md:grid-cols-2 gap-6 relative z-10">
+                <!-- Items werden über JS generiert -->
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-zinc-500 text-sm mb-6">Dies ist ein Auszug aus unserer Karte. Alle weiteren Variationen, Pizzen und Specials finden Sie in unserem Bestellportal.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- SEKTIONS-ÜBERGANG --- -->
+    <div class="h-16 bg-gradient-to-b from-zinc-950 to-zinc-900"></div>
+
+    <!-- --- VERSCHOBENE SEKTION: PHILOSOPHIE / QUALITÄTSVERSPRECHEN --- -->
+    <section id="philosophy" class="py-24 bg-zinc-900 relative">
+        <div class="absolute top-1/2 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-amber-500 font-semibold tracking-widest uppercase text-xs mb-3 block">Mit Liebe Zubereitet</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Das Geheimnis unseres Geschmacks</h2>
+                <p class="text-zinc-400 font-light">In einer schnellen Welt nehmen wir uns bewusst die Zeit für echten, unverfälschten Genuss. Jedes Gericht ist ein kleines Kunstwerk nach jahrzehntelanger italienischer Handwerkskunst.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Wert 1 -->
+                <div class="bg-zinc-950 p-8 rounded-2xl border border-zinc-800/80 hover:border-amber-500/40 transition-all hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-6">
+                        <i data-lucide="clock" class="text-amber-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">48 Stunden Teigruhe</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed font-light">Unser Pizzateig erhält reichlich Zeit zum Reifen. Das macht ihn unvergleichlich luftig, kross und besonders leicht bekömmlich.</p>
+                </div>
+
+                <!-- Wert 2 -->
+                <div class="bg-zinc-950 p-8 rounded-2xl border border-zinc-800/80 hover:border-amber-500/40 transition-all hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-6">
+                        <i data-lucide="heart" class="text-amber-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">San Marzano Tomaten</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed font-light">Für unsere unverwechselbare fruchtige Pizzasauce verwenden wir ausgewählte Tomaten, die an den vulkanischen Hängen Italiens gereift sind.</p>
+                </div>
+
+                <!-- Wert 3 -->
+                <div class="bg-zinc-950 p-8 rounded-2xl border border-zinc-800/80 hover:border-amber-500/40 transition-all hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-6">
+                        <i data-lucide="leaf" class="text-amber-500 w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-white">Moderne Leichtigkeit</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed font-light">Mit unseren frischen, farbenfrohen Bowls bieten wir zeitgemäße, gesunde kulinarische Optionen mit wertvollen Nährstoffen an.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- ORDER CTA SECTION --- -->
+    <section id="order" class="py-24 bg-zinc-950 relative overflow-hidden border-t border-zinc-900">
+        <!-- Abstract shapes for bg -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 class="text-4xl font-bold mb-6 leading-tight">Jetzt bequem nach Hause bestellen</h2>
+            <p class="text-zinc-400 text-lg mb-12 max-w-2xl mx-auto font-light">
+                Wählen Sie Ihren bevorzugten Lieferdienst. Wir bereiten Ihr Essen frisch zu und liefern es in ca. 40 Minuten direkt an Ihre Haustür.
+            </p>
+            
+            <div class="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                <a 
+                    href="https://www.lieferando.de/speisekarte/pizzeria-vita-mia-sandhausen-1" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    class="bg-orange-500 hover:bg-orange-600 text-white p-8 rounded-2xl flex flex-col items-center justify-center transition-all hover:scale-[1.02] shadow-xl hover:shadow-orange-500/10 group"
+                >
+                    <span class="text-2xl font-bold mb-2 tracking-wider">Lieferando</span>
+                    <span class="flex items-center gap-2 text-orange-100 group-hover:text-white transition-colors">
+                        Zur Speisekarte <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </span>
+                </a>
+                
+                <a 
+                    href="https://pizzeria-gelateria.deliverant.app/" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    class="bg-emerald-600 hover:bg-emerald-700 text-white p-8 rounded-2xl flex flex-col items-center justify-center transition-all hover:scale-[1.02] shadow-xl hover:shadow-emerald-600/10 group"
+                >
+                    <span class="text-2xl font-bold mb-2 tracking-wider">Deliverant</span>
+                    <span class="flex items-center gap-2 text-emerald-100 group-hover:text-white transition-colors">
+                        Zur eigenen App <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- SEKTIONS-ÜBERGANG --- -->
+    <div class="h-16 bg-gradient-to-b from-zinc-950 to-zinc-900"></div>
+
+    <!-- --- REVIEWS SECTION (Aktualisiert mit echten Google-Rezensionen) --- -->
+    <section id="reviews" class="py-24 bg-zinc-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-amber-500 font-semibold tracking-widest uppercase text-xs mb-3 block">Gästebewertungen</span>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Das sagen unsere Gäste auf Google</h2>
+                <div class="flex justify-center gap-1 text-amber-500">
+                    <i data-lucide="star" class="fill-current w-6 h-6"></i>
+                    <i data-lucide="star" class="fill-current w-6 h-6"></i>
+                    <i data-lucide="star" class="fill-current w-6 h-6"></i>
+                    <i data-lucide="star" class="fill-current w-6 h-6"></i>
+                    <i data-lucide="star" class="fill-current w-6 h-6"></i>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Rezension 1 (Mister B.) -->
+                <div class="bg-zinc-950 p-8 rounded-2xl border border-zinc-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex gap-1 text-amber-500 mb-4">
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                        </div>
+                        <p class="text-zinc-300 italic mb-6 font-light leading-relaxed">
+                            "Soeben zwei leckere Pizzen erhalten und gegessen! Lieferung war pünktlich, der Fahrer hat sich an die Anweisung gehalten – Top. Die beiden Pizzen waren mega lecker. Klare Empfehlung!"
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-amber-500 font-bold">M</div>
+                        <div>
+                            <p class="text-zinc-100 font-bold text-sm">Mister B.</p>
+                            <p class="text-zinc-500 text-xs">Google Local Guide</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rezension 2 (Laura Iacoviello) -->
+                <div class="bg-zinc-950 p-8 rounded-2xl border border-zinc-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex gap-1 text-amber-500 mb-4">
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                        </div>
+                        <p class="text-zinc-300 italic mb-6 font-light leading-relaxed">
+                            "Essen war suuuper frisch und unglaublich lecker! Sind auf Empfehlung vorbeigeschneit und wurden nicht enttäuscht. Auch die Inhaber und das Personal waren sehr freundlich und zuvorkommend!"
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-amber-500 font-bold">L</div>
+                        <div>
+                            <p class="text-zinc-100 font-bold text-sm">Laura Iacoviello</p>
+                            <p class="text-zinc-500 text-xs">Aktive Google-Nutzerin</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rezension 3 (Lisa Pieper) -->
+                <div class="bg-zinc-950 p-8 rounded-2xl border border-zinc-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex gap-1 text-amber-500 mb-4">
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                            <i data-lucide="star" class="fill-current w-4 h-4"></i>
+                        </div>
+                        <p class="text-zinc-300 italic mb-6 font-light leading-relaxed">
+                            "Der beste Lieferservice in der Region! Wir bestellen nur noch hier! Die Pizzen sind einfach super lecker und auch die Pasta sehr zu empfehlen und große Portionen! Im Laden kann man sogar beim Zubereiten zuschauen..."
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-amber-500 font-bold">L</div>
+                        <div>
+                            <p class="text-zinc-100 font-bold text-sm">Lisa Pieper</p>
+                            <p class="text-zinc-500 text-xs">Treue Stammkundin</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Zusätzliche kleine Rezension (Ju Lia) als schöner Footer -->
+            <div class="mt-8 text-center bg-zinc-950/40 border border-zinc-800 p-6 rounded-2xl max-w-2xl mx-auto">
+                <p class="text-zinc-300 italic font-light text-sm">
+                    "Das Team war super nett, man hat sich sehr wohl gefühlt. Das Essen war ausgezeichnet. Werden jetzt regelmäßig vor Ort bestellen und vor allem weiterempfehlen ❤️"
+                </p>
+                <p class="text-zinc-400 font-bold mt-3 text-xs">— Ju Lia, Google Rezension</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- INFO / LOCATION SECTION (Mit echter, interaktiver Google Maps Karte) --- -->
+    <section id="contact" class="py-24 bg-zinc-950 border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16">
+                
+                <!-- Info Cards -->
+                <div class="space-y-8">
+                    <div>
+                        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+                            <i data-lucide="map-pin" class="text-amber-500"></i> Kontakt & Anfahrt
+                        </h2>
+                        <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800/80 flex flex-col gap-4">
+                            <p class="text-lg font-bold text-white">Pizzeria Vita Mia</p>
+                            <p class="text-zinc-400 font-light">Hauptstraße 92<br/>69207 Sandhausen</p>
+                            <p class="text-zinc-400 flex items-center gap-2">
+                                <i data-lucide="phone" class="w-4 h-4 text-amber-500"></i> 06224 5936717
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="text-3xl font-bold mb-8 flex items-center gap-3">
+                            <i data-lucide="clock" class="text-amber-500"></i> Öffnungszeiten
+                        </h2>
+                        <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800/80">
+                            <ul class="space-y-3">
+                                <li class="flex justify-between items-center border-b border-zinc-800/50 pb-2">
+                                    <span class="text-zinc-400">Montag</span>
+                                    <span class="text-red-400 font-medium">Geschlossen</span>
+                                </li>
+                                <li class="flex justify-between items-center border-b border-zinc-800/50 pb-2">
+                                    <span class="text-zinc-400">Dienstag</span>
+                                    <span class="text-zinc-100 font-medium">11:00 - 13:30 & 17:00 - 01:00</span>
+                                </li>
+                                <li class="flex justify-between items-center border-b border-zinc-800/50 pb-2">
+                                    <span class="text-zinc-400">Mittwoch</span>
+                                    <span class="text-zinc-100 font-medium">11:00 - 13:30 & 17:00 - 01:00</span>
+                                </li>
+                                <li class="flex justify-between items-center border-b border-zinc-800/50 pb-2">
+                                    <span class="text-zinc-400">Donnerstag</span>
+                                    <span class="text-zinc-100 font-medium">11:00 - 13:30 & 17:00 - 01:00</span>
+                                </li>
+                                <li class="flex justify-between items-center border-b border-zinc-800/50 pb-2">
+                                    <span class="text-zinc-400">Freitag</span>
+                                    <span class="text-zinc-100 font-medium">11:00 - 13:30 & 17:00 - 02:00</span>
+                                </li>
+                                <li class="flex justify-between items-center border-b border-zinc-800/50 pb-2">
+                                    <span class="text-zinc-400">Samstag</span>
+                                    <span class="text-zinc-100 font-medium">17:00 - 02:00</span>
+                                </li>
+                                <li class="flex justify-between items-center">
+                                    <span class="text-zinc-400">Sonntag</span>
+                                    <span class="text-zinc-100 font-medium">12:00 - 21:00</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Maps Live-Karte (Echter, funktionierender iFrame für Vita Mia Sandhausen) -->
+                <div class="h-[400px] lg:h-auto min-h-[400px] bg-zinc-900 rounded-2xl border border-zinc-800 overflow-hidden relative group shadow-2xl">
+                    <iframe 
+                        src="https://maps.google.com/maps?q=Pizzeria%20Vita%20Mia,%20Hauptstra%C3%9Fe%2092,%2069207%20Sandhausen&t=&z=16&ie=UTF8&iwloc=&output=embed" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="absolute inset-0 w-full h-full grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
+                    </iframe>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- --- FOOTER --- -->
+    <footer class="bg-zinc-950 border-t border-zinc-900 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
+                
+                <div>
+                    <div class="flex items-center justify-center md:justify-start gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-full overflow-hidden bg-zinc-900 border border-amber-500/20 flex items-center justify-center p-0.5">
+                            <img src="./assets/logo.png" alt="Vita Mia Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="hidden w-full h-full items-center justify-center bg-zinc-900 text-amber-500">
+                                <i data-lucide="utensils" class="h-4 w-4"></i>
+                            </div>
+                        </div>
+                        <span class="text-xl font-bold tracking-wider text-white">VITA <span class="text-amber-500">MIA</span></span>
+                    </div>
+                    <p class="text-zinc-500 leading-relaxed text-sm font-light">
+                        Authentische italienische Küche in Sandhausen. Pizza, Pasta, Bowls und mehr – frisch zubereitet und schnell geliefert.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-md font-bold text-white mb-6 uppercase tracking-wider">Bestellen</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="https://www.lieferando.de/speisekarte/pizzeria-vita-mia-sandhausen-1" target="_blank" rel="noreferrer" class="text-zinc-500 hover:text-amber-500 transition-colors">Über Lieferando</a></li>
+                        <li><a href="https://pizzeria-gelateria.deliverant.app/" target="_blank" rel="noreferrer" class="text-zinc-500 hover:text-amber-500 transition-colors">Über Deliverant App</a></li>
+                        <li><a href="tel:062245936717" class="text-zinc-500 hover:text-amber-500 transition-colors">Telefonisch bestellen</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-md font-bold text-white mb-6 uppercase tracking-wider">Rechtliches</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><button id="open-impressum" class="text-zinc-500 hover:text-amber-500 transition-colors">Impressum</button></li>
+                        <li><button id="open-datenschutz" class="text-zinc-500 hover:text-amber-500 transition-colors">Datenschutzerklärung</button></li>
+                    </ul>
+                </div>
+
+            </div>
+            
+            <div class="pt-8 border-t border-zinc-900 text-center text-zinc-600 text-xs flex flex-col md:flex-row justify-between items-center gap-4">
+                <p>&copy; <span id="current-year"></span> Pizzeria Vita Mia. Alle Rechte vorbehalten.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-zinc-600 hover:text-amber-500 transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-zinc-600 hover:text-amber-500 transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- --- FLOATING CHATBOT WIDGET --- -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <!-- Größeres Chat-Fenster (400px x 600px) mit Mobile-Optimierung -->
+        <div id="chat-window" class="hidden absolute bottom-16 right-0 w-[90vw] sm:w-[400px] h-[75vh] sm:h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-zinc-200 origin-bottom-right fade-in">
+            <div class="bg-amber-500 text-zinc-950 p-4 flex justify-between items-center font-bold">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="message-circle" class="w-5 h-5"></i> Vita Mia Support
+                </div>
+                <button id="close-chat" class="hover:bg-amber-600 p-1 rounded-full transition-colors focus:outline-none">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="flex-grow bg-zinc-50 relative flex flex-col">
+                <!-- IFRAME INTEGRATION -->
+                <iframe
+                    src="about:blank"
+                    title="Chatbot"
+                    width="100%"
+                    height="100%"
+                    frameborder="0"
+                    allow="microphone"
+                    class="absolute inset-0 z-10"
+                ></iframe>
+                <div class="absolute inset-0 flex items-center justify-center text-zinc-400 flex-col gap-3 pointer-events-none z-0">
+                    <i data-lucide="info" class="w-8 h-8 opacity-50"></i>
+                    <span class="text-sm font-medium">Iframe lädt Chatbot-URL...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Toggle Button -->
+        <button id="chat-toggle-btn" class="bg-amber-500 hover:bg-amber-400 text-zinc-950 p-4 rounded-full shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-transform hover:scale-110 flex items-center justify-center focus:outline-none">
+            <i data-lucide="message-circle" id="icon-chat-open" class="w-7 h-7"></i>
+            <i data-lucide="x" id="icon-chat-close" class="w-7 h-7 hidden"></i>
+        </button>
+    </div>
+
+    <!-- --- IMPRESSUM MODAL --- -->
+    <div id="impressum-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+        <div id="impressum-backdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"></div>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[85vh] flex flex-col relative z-10 fade-in">
+            <div class="flex justify-between items-center p-6 border-b border-zinc-800">
+                <h2 class="text-2xl font-bold text-white">Impressum</h2>
+                <button id="close-impressum" class="text-zinc-400 hover:text-white transition-colors focus:outline-none">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto custom-scrollbar text-zinc-300 space-y-6 text-sm leading-relaxed">
+                <div>
+                    <h3 class="text-white font-bold mb-2">Angaben gemäß § 5 TMG</h3>
+                    <p>Pizzeria Vita Mia<br/>Hauptstraße 92<br/>69207 Sandhausen</p>
+                    <p class="mt-2">Vertreten durch: Fam. Moubarak</p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-2">Kontakt</h3>
+                    <p>Telefon: +49 ( 0)62 24 593 67 17<br/>E-Mail: pizzeria.vitamia.hd@gmail.com</p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-2">Umsatzsteuer-ID</h3>
+                    <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: wird nachgereicht</p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-2">EU-Streitschlichtung</h3>
+                    <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr" class="text-amber-500 hover:underline" target="_blank" rel="noreferrer">https://ec.europa.eu/consumers/odr</a>.<br/>Unsere E-Mail-Adresse finden Sie oben im Impressum.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-2">Verbraucher­streit­beilegung/Universal­schlichtungs­stelle</h3>
+                    <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-2">Haftung für Inhalte</h3>
+                    <p>Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen. Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-2">Haftung für Links</h3>
+                    <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-2">Urheberrecht</h3>
+                    <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
+                </div>
+                
+                <p class="text-xs text-zinc-500 pt-4 border-t border-zinc-800">Quelle: https://www.e-recht24.de/impressum-generator.html</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- DATENSCHUTZERKLÄRUNG MODAL --- -->
+    <div id="datenschutz-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+        <div id="datenschutz-backdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"></div>
+        <div class="bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[85vh] flex flex-col relative z-10 fade-in">
+            <div class="flex justify-between items-center p-6 border-b border-zinc-800">
+                <h2 class="text-2xl font-bold text-white">Datenschutzerklärung</h2>
+                <button id="close-datenschutz" class="text-zinc-400 hover:text-white transition-colors focus:outline-none">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="p-6 overflow-y-auto custom-scrollbar text-zinc-300 space-y-6 text-sm leading-relaxed">
+                <div>
+                    <h3 class="text-white font-bold mb-2 text-base">1. Datenschutz auf einen Blick</h3>
+                    <p class="mb-2"><strong>Allgemeine Hinweise:</strong> Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen.</p>
+                    <p><strong>Hosting über GitHub Pages:</strong> Diese Website wird als statische Seite auf GitHub Pages (GitHub Inc., 88 Colin P. Kelly Jr. St, San Francisco, CA 94107, USA) gehostet. Beim Zugriff auf unsere Website erfasst GitHub automatisch Verbindungsdaten (z. B. IP-Adresse, Datum, Uhrzeit, Browsertyp). Dies ist technisch erforderlich, um die Website stabil und sicher auszuliefern.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-2 text-base">2. Datenerfassung auf unserer Website</h3>
+                    <p class="mb-2"><strong>Keine Cookies & kein Tracking:</strong> Wir verzichten auf dieser Website vollständig auf den Einsatz von Tracking-Cookies, Analysetools (wie z.B. Google Analytics) oder Werbenetzwerken.</p>
+                    <p><strong>Keine Formulare:</strong> Da auf dieser Website keine Kontaktformulare oder Registrierungsmöglichkeiten angeboten werden, speichern wir selbst zu keinem Zeitpunkt personenbezogene Daten von Ihnen ab.</p>
+                    <p><strong>Externe Links:</strong> Wenn Sie einen unserer Bestell-Links anklicken (z. B. Lieferando oder Deliverant), verlassen Sie unsere Website. Auf den Zielseiten gelten die dortigen, separaten Datenschutzrichtlinien der jeweiligen Betreiber.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-2 text-base">3. Ihre Rechte</h3>
+                    <p>Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Ihnen steht zudem ein Recht auf Berichtigung, Sperrung oder Löschung dieser Daten zu. Wenden Sie sich hierzu oder bei weiteren Fragen zum Thema Datenschutz gerne an die im Impressum angegebene Adresse.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- --- JAVASCRIPT --- -->
+    <script>
+        // --- 1. Icons Initialisieren ---
+        lucide.createIcons();
+
+        // Aktuelles Jahr im Footer setzen
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // --- 2. Scroll-Effekt für Navbar ---
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-zinc-950/95', 'backdrop-blur-md', 'shadow-lg', 'shadow-black/50', 'py-3');
+                nav.classList.remove('bg-transparent', 'py-5');
+            } else {
+                nav.classList.add('bg-transparent', 'py-5');
+                nav.classList.remove('bg-zinc-950/95', 'backdrop-blur-md', 'shadow-lg', 'shadow-black/50', 'py-3');
+            }
+        });
+
+        // --- 3. Mobile Menü ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconMenu = document.getElementById('icon-menu');
+        const iconX = document.getElementById('icon-x');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            iconMenu.classList.toggle('hidden');
+            iconX.classList.toggle('hidden');
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
+
+        // --- 4. Chatbot Widget ---
+        const chatToggleBtn = document.getElementById('chat-toggle-btn');
+        const chatWindow = document.getElementById('chat-window');
+        const closeChatBtn = document.getElementById('close-chat');
+        const iconChatOpen = document.getElementById('icon-chat-open');
+        const iconChatClose = document.getElementById('icon-chat-close');
+
+        function toggleChat() {
+            chatWindow.classList.toggle('hidden');
+            chatWindow.classList.toggle('flex');
+            iconChatOpen.classList.toggle('hidden');
+            iconChatClose.classList.toggle('hidden');
+        }
+
+        chatToggleBtn.addEventListener('click', toggleChat);
+        closeChatBtn.addEventListener('click', toggleChat);
+
+        // --- 5. Impressum Modal ---
+        const impressumModal = document.getElementById('impressum-modal');
+        const openImpressumBtn = document.getElementById('open-impressum');
+        const closeImpressumBtn = document.getElementById('close-impressum');
+        const impressumBackdrop = document.getElementById('impressum-backdrop');
+
+        function openImpressum() { impressumModal.classList.remove('hidden'); }
+        function closeImpressum() { impressumModal.classList.add('hidden'); }
+
+        openImpressumBtn.addEventListener('click', (e) => { e.preventDefault(); openImpressum(); });
+        closeImpressumBtn.addEventListener('click', closeImpressum);
+        impressumBackdrop.addEventListener('click', closeImpressum);
+
+        // --- 6. Datenschutz Modal ---
+        const datenschutzModal = document.getElementById('datenschutz-modal');
+        const openDatenschutzBtn = document.getElementById('open-datenschutz');
+        const closeDatenschutzBtn = document.getElementById('close-datenschutz');
+        const datenschutzBackdrop = document.getElementById('datenschutz-backdrop');
+
+        function openDatenschutz() { datenschutzModal.classList.remove('hidden'); }
+        function closeDatenschutz() { datenschutzModal.classList.add('hidden'); }
+
+        openDatenschutzBtn.addEventListener('click', (e) => { e.preventDefault(); openDatenschutz(); });
+        closeDatenschutzBtn.addEventListener('click', closeDatenschutz);
+        datenschutzBackdrop.addEventListener('click', closeDatenschutz);
+
+        // --- 7. Dynamische Speisekarte ---
+        const MENU_DATA = [
+            {
+                category: "Vorspeisen",
+                items: [
+                { name: "Schafskäse überbacken", price: "10,50 €", desc: "" },
+                { name: "Bruschetta", price: "6,50 €", desc: "" },
+                { name: "Pommes frites", price: "4,50 €", desc: "" },
+                { name: "Gegrillte Peperoni klein", price: "5,50 €", desc: "" },
+                { name: "Gegrillte Peperoni groß", price: "9,00 €", desc: "" }
+                ]
+            },
+            {
+                category: "Salate",
+                items: [
+                { name: "Grüner Salat", price: "6,00 €", desc: "mit Tomaten, Gurken und Oliven" },
+                { name: "Italienischer Salat", price: "7,00 €", desc: "mit Tomaten, Gurken, Käse, Schinken, Ei, Oliven und Peperoni" },
+                { name: "Contadina Salat", price: "8,00 €", desc: "mit Tomaten, Thunfisch, Zwiebeln, Gurken, Käse, Schinken, Ei, Oliven und Peperoni" },
+                { name: "Bauernsalat mit Schafskäse", price: "15,00 €", desc: "mit Tomaten, Paprika, Zwiebeln, Gurken, Sellerie und Petersilie" },
+                { name: "Insalata Caprese", price: "13,50 €", desc: "mit Tomaten, Mozzarella und Oliven" }
+                ]
+            },
+            {
+                category: "Pizza",
+                items: [
+                { name: "Pizza Margherita", price: "10,00 €", desc: "Klassisch mit Tomatensauce und Käse" },
+                { name: "Pizza Vita Mia", price: "11,50 €", desc: "mit Artischocken, Paprika, Peperoni und Oliven" },
+                { name: "Pizza Mista", price: "12,80 €", desc: "mit Pilzen, Salami und Schinken" },
+                { name: "Pizza Capricciosa", price: "12,50 €", desc: "mit Schinken, Oliven, Artischocken und Peperoni" },
+                { name: "Pizza Diavola", price: "11,50 €", desc: "mit Peperoniwurst, Zwiebeln und Knoblauch" },
+                { name: "Pizza Parma", price: "14,00 €", desc: "mit Parmaschinken, Tomatenscheiben, Rucola und gehobeltem Parmesan" },
+                { name: "Pizza Frutti di Mare", price: "13,50 €", desc: "mit Meeresfrüchten und Knoblauch" },
+                { name: "Pizza Zazza", price: "14,00 €", desc: "mit Bolognesesauce, Schinken, Ananas, Thunfisch and Peperoni" }
+                ]
+            },
+            {
+                category: "Nudeln",
+                items: [
+                { name: "Carbonara", price: "14,50 €", desc: "mit cremiger Sahnesauce, Ei, herzhaftem Speck, frischer Pfeffer und Parmesan" },
+                { name: "Bolognese", price: "14,50 €", desc: "mit Parmesankäse" },
+                { name: "Aglio e Olio", price: "13,50 €", desc: "mit frischen Tomaten und Knoblauch" },
+                { name: "Frutti di Mare", price: "17,50 €", desc: "mit Tomatensauce und Meeresfrüchten" },
+                { name: "Lasagne Classica", price: "13,50 €", desc: "mit Bolognese und Käse überbacken" }
+                ]
+            },
+            {
+                category: "Bowls",
+                items: [
+                { name: "Hawaiian Bowl", price: "16,80 €", desc: "Lachs, marinierte Gurke, Avocado, Mango, rote Zwiebeln, Erdnüsse, Sesame-Peanut Fusion" },
+                { name: "Mediterranian Breeze Bowl", price: "11,90 €", desc: "Grilled Chicken, Tomaten, rote Zwiebeln, Fetakäse, Rucola, Oliven, Umami Explosion" },
+                { name: "Crazy Chicken Bowl", price: "14,00 €", desc: "Fried Chicken, marinierte Karotten, Fetakäse, rote Beete, Avocado, Teriyaki Sauce" }
+                ]
+            },
+            {
+                category: "Desserts",
+                items: [
+                { name: "Nutella Calzone", price: "11,50 €", desc: "Die leckere Calzone mit flüssigem Nutella im Inneren." },
+                { name: "Tiramisu", price: "8,00 €", desc: "Hausgemacht, nach klassischer Rezeptur" },
+                { name: "Tartufo", price: "7,00 €", desc: "" }
+                ]
+            }
+        ];
+
+        let activeCategory = "Pizza";
+        const menuTabsContainer = document.getElementById('menu-tabs');
+        const menuContentContainer = document.getElementById('menu-content');
+
+        function renderMenu() {
+            // Rendere die Tabs (Kategorien)
+            menuTabsContainer.innerHTML = MENU_DATA.map(cat => {
+                const isActive = activeCategory === cat.category;
+                const baseClasses = "px-6 py-3 rounded-full whitespace-nowrap font-medium transition-all duration-300";
+                const activeClasses = isActive ? "bg-amber-500 text-zinc-950 shadow-lg shadow-amber-500/10" : "bg-zinc-900 text-zinc-400 hover:text-white hover:bg-zinc-800";
+                
+                return `<button onclick="setActiveCategory('${cat.category}')" class="${baseClasses} ${activeClasses}">
+                            ${cat.category}
+                        </button>`;
+            }).join('');
+
+            // Rendere den Inhalt der aktiven Kategorie
+            const activeData = MENU_DATA.find(c => c.category === activeCategory);
+            if (activeData) {
+                menuContentContainer.innerHTML = activeData.items.map(item => `
+                    <div class="bg-zinc-900/30 p-6 rounded-2xl border border-zinc-800/80 hover:border-amber-500/30 transition-all duration-350 flex justify-between items-start group fade-in">
+                        <div class="pr-4">
+                            <h3 class="text-xl font-bold text-zinc-100 group-hover:text-amber-500 transition-colors duration-300">${item.name}</h3>
+                            ${item.desc ? `<p class="text-zinc-400 mt-2 text-sm leading-relaxed font-light">${item.desc}</p>` : ''}
+                        </div>
+                        <div class="text-amber-500 font-bold text-lg whitespace-nowrap bg-amber-500/10 px-3 py-1 rounded-lg">
+                            ${item.price}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Globale Funktion um Kategorie per Klick zu ändern
+        window.setActiveCategory = function(category) {
+            activeCategory = category;
+            renderMenu();
+        };
+
+        // Initiales Rendern der Speisekarte
+        renderMenu();
+
+    </script>
+</body>
+</html>
