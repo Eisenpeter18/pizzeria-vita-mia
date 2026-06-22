@@ -517,40 +517,86 @@
 
     <!-- --- FLOATING CHATBOT WIDGET --- -->
     <div class="fixed bottom-6 right-6 z-50">
-        <!-- Größeres Chat-Fenster (400px x 600px) mit Mobile-Optimierung -->
-        <div id="chat-window" class="hidden absolute bottom-16 right-0 w-[90vw] sm:w-[400px] h-[75vh] sm:h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-zinc-200 origin-bottom-right fade-in">
+
+        <!-- CHAT WINDOW -->
+        <div id="chat-window"
+            class="hidden absolute bottom-16 right-0 w-[90vw] sm:w-[400px] h-[75vh] sm:h-[600px] bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-zinc-200">
+
+            <!-- HEADER -->
             <div class="bg-amber-500 text-zinc-950 p-4 flex justify-between items-center font-bold">
+
                 <div class="flex items-center gap-2">
-                    <i data-lucide="message-circle" class="w-5 h-5"></i> Vita Mia Support
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                    Vita Mia Support
                 </div>
-                <button id="close-chat" class="hover:bg-amber-600 p-1 rounded-full transition-colors focus:outline-none">
+
+                <button id="close-chat"
+                        class="hover:bg-amber-600 p-1 rounded-full transition-colors">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
+
             </div>
-            <div class="flex-grow bg-zinc-50 relative flex flex-col">
-                <!-- IFRAME INTEGRATION -->
+
+            <!-- BODY -->
+            <div class="flex-1 relative">
+
                 <iframe
                     src="https://vita-mia.ai-zy.de/"
-                    title="Chatbot"
-                    width="100%"
-                    height="100%"
-                    frameborder="0"
-                    allow="microphone"
-                    class="absolute inset-0 z-10"
-                ></iframe>
-                <div class="absolute inset-0 flex items-center justify-center text-zinc-400 flex-col gap-3 pointer-events-none z-0">
-                    <i data-lucide="info" class="w-8 h-8 opacity-50"></i>
-                    <span class="text-sm font-medium">Iframe lädt Chatbot-URL...</span>
-                </div>
+                    class="w-full h-full border-0"
+                    allow="microphone">
+                </iframe>
+
             </div>
         </div>
 
-        <!-- Chat Toggle Button -->
-        <button id="chat-toggle-btn" class="bg-amber-500 hover:bg-amber-400 text-zinc-950 p-4 rounded-full shadow-[0_0_20px_rgba(245,158,11,0.4)] transition-transform hover:scale-110 flex items-center justify-center focus:outline-none">
-            <i data-lucide="message-circle" id="icon-chat-open" class="w-7 h-7"></i>
-            <i data-lucide="x" id="icon-chat-close" class="w-7 h-7 hidden"></i>
+        <!-- TOGGLE BUTTON -->
+        <button id="chat-toggle-btn"
+                class="bg-amber-500 hover:bg-amber-400 text-zinc-950 p-4 rounded-full shadow-lg transition-transform hover:scale-110 flex items-center justify-center">
+
+            <i data-lucide="message-circle" id="icon-open" class="w-7 h-7"></i>
+            <i data-lucide="x" id="icon-close" class="w-7 h-7 hidden"></i>
+
         </button>
+
     </div>
+
+    <!-- LUCIDE ICONS -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+    lucide.createIcons();
+    </script>
+
+    <!-- TOGGLE LOGIC -->
+    <script>
+    const chatWindow = document.getElementById("chat-window");
+    const toggleBtn = document.getElementById("chat-toggle-btn");
+    const closeBtn = document.getElementById("close-chat");
+
+    const iconOpen = document.getElementById("icon-open");
+    const iconClose = document.getElementById("icon-close");
+
+    function openChat() {
+        chatWindow.classList.remove("hidden");
+        iconOpen.classList.add("hidden");
+        iconClose.classList.remove("hidden");
+    }
+
+    function closeChat() {
+        chatWindow.classList.add("hidden");
+        iconOpen.classList.remove("hidden");
+        iconClose.classList.add("hidden");
+    }
+
+    toggleBtn.addEventListener("click", () => {
+        if (chatWindow.classList.contains("hidden")) {
+            openChat();
+        } else {
+            closeChat();
+        }
+    });
+
+    closeBtn.addEventListener("click", closeChat);
+    </script>
 
     <!-- --- IMPRESSUM MODAL --- -->
     <div id="impressum-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
