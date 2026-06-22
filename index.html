@@ -560,44 +560,6 @@
 
     </div>
 
-    <!-- LUCIDE ICONS -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-    lucide.createIcons();
-    </script>
-
-    <!-- TOGGLE LOGIC -->
-    <script>
-    const chatWindow = document.getElementById("chat-window");
-    const toggleBtn = document.getElementById("chat-toggle-btn");
-    const closeBtn = document.getElementById("close-chat");
-
-    const iconOpen = document.getElementById("icon-open");
-    const iconClose = document.getElementById("icon-close");
-
-    function openChat() {
-        chatWindow.classList.remove("hidden");
-        iconOpen.classList.add("hidden");
-        iconClose.classList.remove("hidden");
-    }
-
-    function closeChat() {
-        chatWindow.classList.add("hidden");
-        iconOpen.classList.remove("hidden");
-        iconClose.classList.add("hidden");
-    }
-
-    toggleBtn.addEventListener("click", () => {
-        if (chatWindow.classList.contains("hidden")) {
-            openChat();
-        } else {
-            closeChat();
-        }
-    });
-
-    closeBtn.addEventListener("click", closeChat);
-    </script>
-
     <!-- --- IMPRESSUM MODAL --- -->
     <div id="impressum-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
         <div id="impressum-backdrop" class="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"></div>
@@ -691,6 +653,41 @@
     <script>
         // --- 1. Icons Initialisieren ---
         lucide.createIcons();
+        
+        
+        src="https://unpkg.com/lucide@latest">
+        lucide.createIcons();
+
+
+        const chatWindow = document.getElementById("chat-window");
+        const toggleBtn = document.getElementById("chat-toggle-btn");
+        const closeBtn = document.getElementById("close-chat");
+
+        const iconOpen = document.getElementById("icon-open");
+        const iconClose = document.getElementById("icon-close");
+
+        function openChat() {
+            chatWindow.classList.remove("hidden");
+            iconOpen.classList.add("hidden");
+            iconClose.classList.remove("hidden");
+        }
+
+        function closeChat() {
+            chatWindow.classList.add("hidden");
+            iconOpen.classList.remove("hidden");
+            iconClose.classList.add("hidden");
+        }
+
+        toggleBtn.addEventListener("click", () => {
+            if (chatWindow.classList.contains("hidden")) {
+                openChat();
+            } else {
+                closeChat();
+            }
+        });
+
+        closeBtn.addEventListener("click", closeChat);
+
 
         // Aktuelles Jahr im Footer setzen
         document.getElementById('current-year').textContent = new Date().getFullYear();
@@ -724,22 +721,7 @@
         mobileMenuBtn.addEventListener('click', toggleMobileMenu);
         mobileLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
 
-        // --- 4. Chatbot Widget ---
-        const chatToggleBtn = document.getElementById('chat-toggle-btn');
-        const chatWindow = document.getElementById('chat-window');
-        const closeChatBtn = document.getElementById('close-chat');
-        const iconChatOpen = document.getElementById('icon-chat-open');
-        const iconChatClose = document.getElementById('icon-chat-close');
 
-        function toggleChat() {
-            chatWindow.classList.toggle('hidden');
-            chatWindow.classList.toggle('flex');
-            iconChatOpen.classList.toggle('hidden');
-            iconChatClose.classList.toggle('hidden');
-        }
-
-        chatToggleBtn.addEventListener('click', toggleChat);
-        closeChatBtn.addEventListener('click', toggleChat);
 
         // --- 5. Impressum Modal ---
         const impressumModal = document.getElementById('impressum-modal');
