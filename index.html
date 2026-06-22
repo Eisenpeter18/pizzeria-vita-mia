@@ -186,9 +186,15 @@
             <div id="menu-content" class="grid md:grid-cols-2 gap-6 relative z-10">
                 <!-- Items werden über JS generiert -->
             </div>
+
+            <div id="show-more-container" class="mt-12 text-center hidden">
+                <button id="btn-show-more" class="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-zinc-950 font-semibold rounded-xl transition duration-200 shadow-lg shadow-amber-500/10">
+                    Alle Gerichte ansehen
+                </button>
+            </div>
             
             <div class="mt-12 text-center">
-                <p class="text-zinc-500 text-sm mb-6">Dies ist ein Auszug aus unserer Karte. Alle weiteren Variationen, Pizzen und Specials finden Sie in unserem Bestellportal.</p>
+                <p class="text-zinc-500 text-sm mb-6">Um die perfekte Pizza oder das perfekte Gericht schnell und einfach zu finden, frage doch gerne unseren Chatbot.</p>
             </div>
         </div>
     </section>
@@ -248,6 +254,13 @@
             <p class="text-zinc-400 text-lg mb-12 max-w-2xl mx-auto font-light">
                 Wählen Sie Ihren bevorzugten Lieferdienst. Wir bereiten Ihr Essen frisch zu und liefern es in ca. 40 Minuten direkt an Ihre Haustür.
             </p>
+            
+            <div class="flex items-center gap-4 text-amber-500 font-bold bg-zinc-900/50 border border-zinc-800/80 p-4 rounded-xl inline-flex">
+                <i data-lucide="phone" class="h-6 w-6"></i>
+                <span class="text-xl">06224 5936717</span>
+            </div>
+
+            <div class="h-8"></div>
             
             <div class="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
                 <a 
@@ -713,67 +726,159 @@
             {
                 category: "Vorspeisen",
                 items: [
-                { name: "Schafskäse überbacken", price: "10,50 €", desc: "" },
-                { name: "Bruschetta", price: "6,50 €", desc: "" },
-                { name: "Pommes frites", price: "4,50 €", desc: "" },
-                { name: "Gegrillte Peperoni klein", price: "5,50 €", desc: "" },
-                { name: "Gegrillte Peperoni groß", price: "9,00 €", desc: "" }
+                    { name: "Schafskäse überbacken", price: "10,50 €", desc: "" },
+                    { name: "Bruschetta", price: "6,50 €", desc: "" },
+                    { name: "Pommes frites", price: "4,50 €", desc: "" },
+                    { name: "Gegrillte Peperoni klein", price: "5,50 €", desc: "" },
+                    { name: "Gegrillte Peperoni groß", price: "9,00 €", desc: "" }
                 ]
             },
             {
                 category: "Salate",
                 items: [
-                { name: "Grüner Salat", price: "6,00 €", desc: "mit Tomaten, Gurken und Oliven" },
-                { name: "Italienischer Salat", price: "7,00 €", desc: "mit Tomaten, Gurken, Käse, Schinken, Ei, Oliven und Peperoni" },
-                { name: "Contadina Salat", price: "8,00 €", desc: "mit Tomaten, Thunfisch, Zwiebeln, Gurken, Käse, Schinken, Ei, Oliven und Peperoni" },
-                { name: "Bauernsalat mit Schafskäse", price: "15,00 €", desc: "mit Tomaten, Paprika, Zwiebeln, Gurken, Sellerie und Petersilie" },
-                { name: "Insalata Caprese", price: "13,50 €", desc: "mit Tomaten, Mozzarella und Oliven" }
+                    { name: "Grüner Salat", price: "6,00 €", desc: "mit Tomaten, Gurken und Oliven" },
+                    { name: "Italienischer Salat", price: "7,00 €", desc: "mit Tomaten, Gurken, Käse, Schinken, Ei, Oliven und Peperoni" },
+                    { name: "Contadina Salat", price: "8,00 €", desc: "mit Tomaten, Thunfisch, Zwiebeln, Gurken, Käse, Schinken, Ei, Oliven und Peperoni" },
+                    { name: "Bauernsalat mit Schafskäse", price: "15,00 €", desc: "mit Tomaten, Paprika, Zwiebeln, Gurken, Sellerie und Petersilie" },
+                    { name: "Insalata Caprese", price: "13,50 €", desc: "mit Tomaten, Mozzarella und Oliven" },
+                    { name: "Nizzasalat", price: "15,50 €", desc: "mit Tomaten, Gurken, Käse, Oliven, Peperoni, Thunfisch, Krabben und Artischocken" },
+                    { name: "Insalata di Pollo", price: "15,00 €", desc: "mit Tomaten, Gurken, Mais, Paprika und Hähnchenbrustfilet" }
                 ]
             },
             {
                 category: "Pizza",
                 items: [
-                { name: "Pizza Margherita", price: "10,00 €", desc: "Klassisch mit Tomatensauce und Käse" },
-                { name: "Pizza Vita Mia", price: "11,50 €", desc: "mit Artischocken, Paprika, Peperoni und Oliven" },
-                { name: "Pizza Mista", price: "12,80 €", desc: "mit Pilzen, Salami und Schinken" },
-                { name: "Pizza Capricciosa", price: "12,50 €", desc: "mit Schinken, Oliven, Artischocken und Peperoni" },
-                { name: "Pizza Diavola", price: "11,50 €", desc: "mit Peperoniwurst, Zwiebeln und Knoblauch" },
-                { name: "Pizza Parma", price: "14,00 €", desc: "mit Parmaschinken, Tomatenscheiben, Rucola und gehobeltem Parmesan" },
-                { name: "Pizza Frutti di Mare", price: "13,50 €", desc: "mit Meeresfrüchten und Knoblauch" },
-                { name: "Pizza Zazza", price: "14,00 €", desc: "mit Bolognesesauce, Schinken, Ananas, Thunfisch and Peperoni" }
+                    { name: "Pizzabrot", price: "8,00 €", desc: "mit Knoblauch" },
+                    { name: "Pizza Margherita", price: "10,00 €", desc: "" },
+                    { name: "Pizza Vita Mia", price: "11,50 €", desc: "mit Artischocken, Paprika, Peperoni und Oliven" },
+                    { name: "Pizza Italia", price: "12,00 €", desc: "mit Paprika und Zwiebeln" },
+                    { name: "Pizza Bianca", price: "11,50 €", desc: "mit Schafskäse, Peperoni und Knoblauch" },
+                    { name: "Pizza Spinaci", price: "11,50 €", desc: "mit Blattspinat, Oliven und Knoblauch" },
+                    { name: "Pizza Mozzarella", price: "13,00 €", desc: "mit frischen Tomaten, Mozzarella und Basilikum" },
+                    { name: "Pizza Broccoli", price: "12,00 €", desc: "mit Pilzen und Broccoli" },
+                    { name: "Pizza Fantasia", price: "11,50 €", desc: "mit frischen Tomaten, Spinat und Gorgonzola" },
+                    { name: "Pizza Quattro Formagi", price: "13,00 €", desc: "mit Tomatensauce und 4 verschiedenen Käsesorten" },
+                    { name: "Pizza Melanzane", price: "11,50 €", desc: "mit Auberginen und Mozzarella" },
+                    { name: "Pizza Filippo", price: "12,50 €", desc: "mit frischen Tomaten, Pilzen, Mozzarella und Basilikum" },
+                    { name: "Pizza Vegetaria", price: "12,50 €", desc: "mit Broccoli, Oliven, Schafskäse und Knoblauch" },
+                    { name: "Pizza Campagna", price: "11,50 €", desc: "mit Pilzen, Paprika und Spiegelei" },
+                    { name: "Pizza Mista", price: "12,80 €", desc: "mit Pilzen, Salami und Schinken" },
+                    { name: "Pizza Capricciosa", price: "12,50 €", desc: "mit Schinken, Oliven, Artischocken und Peperoni" },
+                    { name: "Pizza Americana", price: "11,50 €", desc: "mit Peperoniwurst und Pilze" },
+                    { name: "Pizza alla Buttanesca", price: "13,50 €", desc: "mit Salami, Schinken, Pilzen, Zwiebeln, Peperoni, Oliven, Artischocken und Knoblauch" },
+                    { name: "Pizza Hawaii", price: "11,50 €", desc: "mit Ananas und Schinken" },
+                    { name: "Pizza Speziale", price: "13,00 €", desc: "mit Salami, Schinken, Pilzen, Artischocken und Paprika" },
+                    { name: "Pizza Gorgonzola", price: "12,50 €", desc: "mit Schinken und Gorgonzola" },
+                    { name: "Pizza Quattro Stagioni", price: "13,00 €", desc: "mit Salami, Schinken, Artischocken, Pilzen und Oliven" },
+                    { name: "Pizza Diavola", price: "11,50 €", desc: "mit Peperoniwurst, Zwiebeln und Knoblauch" },
+                    { name: "Pizza Vulcano", price: "13,00 €", desc: "mit Salami, Pilzen, Speck und Spiegelei" },
+                    { name: "Pizza Tiziano", price: "12,50 €", desc: "mit Salami, Schafskäse und Oliven" },
+                    { name: "Pizza Peppino", price: "12,50 €", desc: "mit Mais, Schinken und Pilzen" },
+                    { name: "Pizza Zazza", price: "14,00 €", desc: "mit Bolognesesauce, Schinken, Ananas, Thunfisch and Peperoni" },
+                    { name: "Pizza Abruzzese (scharf)", price: "13,00 €", desc: "mit Peperoniwurst, scharfe Peperoni, Zwiebeln und Paprika" },
+                    { name: "Pizza Mexicana", price: "12,50 €", desc: "mit Hackfleisch, Zwiebeln, Mais, Paprika und Peperoni" },
+                    { name: "Pizza Pollo", price: "12,50 €", desc: "mit Pute, Mais und Pilzen" },
+                    { name: "Pizza Döner", price: "13,50 €", desc: "" },
+                    { name: "Pizza Papperino", price: "11,50 €", desc: "mit ital. Wienerle und Pommes" },
+                    { name: "Pizza Tonno", price: "11,50 €", desc: "mit Thunfisch und Zwiebeln" },
+                    { name: "Pizza Sardellen", price: "13,00 €", desc: "mit Oliven, Sardellen, Zwiebeln, Peperoni und Kapern" },
+                    { name: "Pizza Frutti di Mare", price: "13,50 €", desc: "mit Meeresfrüchten und Knoblauch" },
+                    { name: "Pizza Bella Vista", price: "11,50 €", desc: "mit Ei, Thunfisch, Knoblauch und Zwiebeln" },
+                    { name: "Pizza Sicilia", price: "12,50 €", desc: "mit Sardellen, Oliven, Artischocken und Knoblauch" },
+                    { name: "Pizza Mare e Monti", price: "11,50 €", desc: "mit Krabben und Pilzen" },
+                    { name: "Pizza Bolognese", price: "13,00 €", desc: "mit Salami, Pilzen, Schinken und Bolognesesauce" },
+                    { name: "Calzone", price: "13,00 €", desc: "mit Pilzen, Schinken und Salami gefüllt" },
+                    { name: "Calzone Hawaii", price: "11,50 €", desc: "mit Ananas und Schinken" },
+                    { name: "Pizza Spaghetti", price: "11,00 €", desc: "mit Käse und Bolognesesauce" },
+                    { name: "Pizza Parma", price: "14,00 €", desc: "mit Parmaschinken, Tomatenscheiben, Rucola und gehobeltem Parmesan" },
+                    { name: "Pizza Hollandaise", price: "13,00 €", desc: "mit Schinken, Broccoli und Sauce Hollandaise" },
+                    { name: "Pizza Pesto", price: "14,00 €", desc: "mit Frischkäse, Pesto, Cherry-Tomaten, Rucola und Mozzarella" },
+                    { name: "Pizza Stromboli", price: "14,00 €", desc: "mit Rindfleisch, Paprika, Peperoni und Pilze" },
+                    { name: "Pizza Mauro", price: "14,00 €", desc: "mit Sauce Hollandaise, Knoblauch, Broccoli, Rinderhack und Mais" },
+                    { name: "Party-Pizza mit Hinterschinken", price: "27,50 €", desc: "" },
+                    { name: "Party-Pizza Margherita", price: "25,50 €", desc: "" },
+                    { name: "Party-Pizza mit Salami", price: "27,50 €", desc: "" },
+                    { name: "Party-Pizza mit Salami, Hinterschinken, Paprika und Pilze", price: "33,50 €", desc: "" },
+                    { name: "Party-Pizza mit Pilzen", price: "27,50 €", desc: "" },
+                    { name: "Party-Pizza mit Meeresfrüchten", price: "37,50 €", desc: "" }
                 ]
             },
             {
                 category: "Nudeln",
                 items: [
-                { name: "Carbonara", price: "14,50 €", desc: "mit cremiger Sahnesauce, Ei, herzhaftem Speck, frischer Pfeffer und Parmesan" },
-                { name: "Bolognese", price: "14,50 €", desc: "mit Parmesankäse" },
-                { name: "Aglio e Olio", price: "13,50 €", desc: "mit frischen Tomaten und Knoblauch" },
-                { name: "Frutti di Mare", price: "17,50 €", desc: "mit Tomatensauce und Meeresfrüchten" },
-                { name: "Lasagne Classica", price: "13,50 €", desc: "mit Bolognese und Käse überbacken" }
+                    { name: "Carbonara", price: "14,50 €", desc: "mit cremiger Sahnesauce, Ei, herzhaftem Speck, frischer Pfeffer und Parmesan" },
+                    { name: "Bolognese", price: "14,50 €", desc: "mit Parmesankäse" },
+                    { name: "Aglio e Olio", price: "13,50 €", desc: "mit frischen Tomaten und Knoblauch" },
+                    { name: "Napoli", price: "13,00 €", desc: "mit Tomatensauce und Cherrytomaten" },
+                    { name: "Frutti di Mare", price: "17,50 €", desc: "mit Tomatensauce und Meeresfrüchten" },
+                    { name: "Al Pesto", price: "13,50 €", desc: "mit Basilikum-Pesto" },
+                    { name: "Vita", price: "15,50 €", desc: "mit Hackfleisch, Pilzen, Erbsen, Aurorasauce (Napoli und Sahne)" },
+                    { name: "Prosciutto a Panna", price: "13,50 €", desc: "mit Sahne und Schinken" },
+                    { name: "al Gorgonzola", price: "15,00 €", desc: "" },
+                    { name: "Chef", price: "15,50 €", desc: "mit Schinken, Pilzen, Erbsen, Bolognesesauce und Sahne" },
+                    { name: "al Funghi", price: "13,50 €", desc: "mit Käse, Champignons und Sahnesauce" },
+                    { name: "Salmone", price: "17,00 €", desc: "mit Lachs in feiner Sauce, Schnittlauch und Sahnesauce" },
+                    { name: "Arrabiata (scharf)", price: "13,50 €", desc: "mit Tomatensauce, Zwiebeln und Schinken" },
+                    { name: "Amatriciana (scharf)", price: "15,00 €", desc: "mit Tomatensauce, Speck und Zwiebeln" },
+                    { name: "Lasagne Classica", price: "13,50 €", desc: "mit Bolognese und Käse" }
                 ]
             },
             {
                 category: "Bowls",
                 items: [
-                { name: "Hawaiian Bowl", price: "16,80 €", desc: "Lachs, marinierte Gurke, Avocado, Mango, rote Zwiebeln, Erdnüsse, Sesame-Peanut Fusion" },
-                { name: "Mediterranian Breeze Bowl", price: "11,90 €", desc: "Grilled Chicken, Tomaten, rote Zwiebeln, Fetakäse, Rucola, Oliven, Umami Explosion" },
-                { name: "Crazy Chicken Bowl", price: "14,00 €", desc: "Fried Chicken, marinierte Karotten, Fetakäse, rote Beete, Avocado, Teriyaki Sauce" }
+                    { name: "Hawaiian Bowl", price: "16,80 €", desc: "Lachs, marinierte Gurke, Avocado, Mango, rote Zwiebeln, Erdnüsse geröstet, Sesame-Peanut Fusion (Wahl aus: Klein und Groß)" },
+                    { name: "Mediterranian Breeze Bowl", price: "11,90 €", desc: "Grilled Chicken, Tomaten, roteZwiebeln, Fetakäse, Rucola, Oliven, Umami Explosion, Siracha Mayo" },
+                    { name: "Colorful Garden Bowl", price: "11,20 €", desc: "Falafel, rote Beete, marinierte Karotten, Rotkohlsalat, Edamame, roasted Garlic-Sesame Teriyaki (Wahl aus: Klein und Groß)" },
+                    { name: "Crazy Chicken Bowl", price: "14,00 €", desc: "Fried Chicken, marinierte Karotten, Fetakäse, rote Beete, Avocado, Sesame-Peanut Fusion, Teriyaki Sauce (Wahl aus: Klein und Groß)" },
+                    { name: "Rising Sun Bowl", price: "16,40 €", desc: "Lachs, Edamame, marinierte Gurken, Sushi Ingwer, Avocado Frühlingslauch, Umami Explosion, Wasabi Mayo (Wahl aus: Klein und Groß)" },
+                    { name: "Japan Bowl", price: "11,60 €", desc: "Fried Chicken, gekochtes Ei, Frühlingslauch, Umami Explosion (Wahl aus: Klein und Groß)" },
+                    { name: "Farmers Bowl", price: "12,50 €", desc: "Grilled Chicken, marinierte Gurken, marinierte Karotten, Radieschen süß-sauer Mais, Frühlingslauch, Siracha Mayo (Wahl aus: Klein und Groß)" },
+                    { name: "Create your own Bowl BASIC KLEIN", price: "5,50 €", desc: "Reis + 2 Side Toppings + 2 Saucen Maintoppings ca. 120 g" },
+                    { name: "Create your own Bowl BASIC GROSS", price: "7,50 €", desc: "" },
+                    { name: "Egg Fried Rice mit Frühlingslauch", price: "8,50 €", desc: "" },
+                    { name: "Black Pepper Teriyaki Chicken", price: "9,50 €", desc: "" }
+                ]
+            },
+            {
+                category: "Schnitzel",
+                items: [
+                    { name: "Schnitzel Wiener Art", price: "16,00 €", desc: "mit Pommes" }
                 ]
             },
             {
                 category: "Desserts",
                 items: [
-                { name: "Nutella Calzone", price: "11,50 €", desc: "Die leckere Calzone mit flüssigem Nutella im Inneren." },
-                { name: "Tiramisu", price: "8,00 €", desc: "Hausgemacht, nach klassischer Rezeptur" },
-                { name: "Tartufo", price: "7,00 €", desc: "" }
+                    { name: "Nutella Calzone", price: "11,50 €", desc: "Die leckere Calzone mit flüssigem Nutella im Inneren." },
+                    { name: "Tartufo", price: "7,00 €", desc: "" },
+                    { name: "Apfelstrudel", price: "7,00 €", desc: "mit Sahne" },
+                    { name: "Tiramisu", price: "8,00 €", desc: "hausgemacht, nach klassischer Rezeptur" },
+                    { name: "Pizza Nutella Ø 28cm", price: "11,50 €", desc: "Wahl aus: mit Bananane, mit Früchten" }
+                ]
+            },
+            {
+                category: "Alkoholfreie Getränke",
+                items: [
+                    { name: "Apfelschorle 1,0l", price: "4,00 €", desc: "" },
+                    { name: "Coca Cola 0,33l", price: "2,75 €", desc: "Preis inklusive 0,25 € Pfand" },
+                    { name: "Fanta 0,33l", price: "2,75 €", desc: "Preis inklusive 0,25 € Pfand" },
+                    { name: "Mezzo Mix 0,33l", price: "2,75 €", desc: "Preis inklusive 0,25 € Pfand" },
+                    { name: "Sprite 0,33l", price: "2,75 €", desc: "Preis inklusive 0,25 € Pfand" },
+                    { name: "Coca Cola 1,0l", price: "4,00 €", desc: "Enthält Koffein (10,00 mg/100 ml), inkl. Pfand (0,15 €), 3,50 €/l, 1l" },
+                    { name: "Coca Cola Zero 1,0l", price: "4,00 €", desc: "Enthält Koffein (10,00 mg/100 ml), inkl. Pfand (0,15 €), 3,50 €/l, 1l" },
+                    { name: "Mezzo Mix 1,0l", price: "4,00 €", desc: "Enthält Koffein (6,00 mg/100 ml), inkl. Pfand (0,15 €), 3,50 €/l, 1l" },
+                    { name: "Fanta 1,0l", price: "4,00 €", desc: "inkl. Pfand (0,15 €), 3,50 €/l, 1l" },
+                    { name: "Sprite 1,0l", price: "4,00 €", desc: "inkl. Pfand (0,15 €), 3,50 €/l, 1l" }
                 ]
             }
         ];
 
         let activeCategory = "Pizza";
+        let isExpanded = false; // Speichert, ob das Menü aktuell ausgeklappt ist
+
         const menuTabsContainer = document.getElementById('menu-tabs');
         const menuContentContainer = document.getElementById('menu-content');
+        const showMoreContainer = document.getElementById('show-more-container');
+        const btnShowMore = document.getElementById('btn-show-more');
 
         function renderMenu() {
             // Rendere die Tabs (Kategorien)
@@ -790,7 +895,12 @@
             // Rendere den Inhalt der aktiven Kategorie
             const activeData = MENU_DATA.find(c => c.category === activeCategory);
             if (activeData) {
-                menuContentContainer.innerHTML = activeData.items.map(item => `
+                // Wenn mehr als 10 Items vorhanden sind und NICHT ausgeklappt ist -> bei 10 abschneiden
+                const itemsToRender = (activeData.items.length > 10 && !isExpanded) 
+                    ? activeData.items.slice(0, 10) 
+                    : activeData.items;
+
+                menuContentContainer.innerHTML = itemsToRender.map(item => `
                     <div class="bg-zinc-900/30 p-6 rounded-2xl border border-zinc-800/80 hover:border-amber-500/30 transition-all duration-350 flex justify-between items-start group fade-in">
                         <div class="pr-4">
                             <h3 class="text-xl font-bold text-zinc-100 group-hover:text-amber-500 transition-colors duration-300">${item.name}</h3>
@@ -801,12 +911,34 @@
                         </div>
                     </div>
                 `).join('');
+
+                // Button-Container anzeigen oder verstecken, je nach Anzahl der Gerichte
+                if (activeData.items.length > 10) {
+                    showMoreContainer.classList.remove('hidden');
+                    btnShowMore.textContent = isExpanded ? "Weniger anzeigen" : "Alle Gerichte ansehen";
+                } else {
+                    showMoreContainer.classList.add('hidden');
+                }
             }
+        }
+
+        // Event-Listener für den "Alle ansehen" Button
+        if (btnShowMore) {
+            btnShowMore.addEventListener('click', () => {
+                isExpanded = !isExpanded; // Zustand umkehren
+                renderMenu(); // Menü neu rendern
+                
+                // Falls wieder eingeklappt wird, sanft zum Anfang des Menüs hochscrollen
+                if (!isExpanded) {
+                    document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
         }
 
         // Globale Funktion um Kategorie per Klick zu ändern
         window.setActiveCategory = function(category) {
             activeCategory = category;
+            isExpanded = false; // Bei Kategorie-Wechsel immer einklappen
             renderMenu();
         };
 
